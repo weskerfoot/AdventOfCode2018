@@ -28,6 +28,6 @@ partOne = do
 partTwo = do
   intervals <- getIntervals
   let repeating = intervals ++ repeating
-  print $ findDups (0 :: Integer) (M.empty) repeating
+  print $ findDups (0 :: Integer) M.empty repeating
 
 calculate = partOne >> partTwo
