@@ -33,7 +33,4 @@ partTwo = do
   let repeating = intervals ++ repeating
   print $ findDups (0 :: Integer) (H.empty) repeating
 
-
-calculateIntervals xs = scanl1 (+) xs
-
 calculate = partOne >> partTwo
