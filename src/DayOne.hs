@@ -2,7 +2,10 @@ module DayOne
     ( calculate
     ) where
 
-import qualified Data.HashSet as M
+import qualified Data.HashSet as H
+import Control.Applicative ((<$>))
+import Data.Function (on)
+import Data.List (groupBy)
 
 parseValue :: String -> Integer -> Integer
 parseValue x =
@@ -18,8 +21,8 @@ getIntervals = do
 
 findDups acc _ [] = Nothing
 findDups acc m (f:fs)
-  | M.member (f acc) m = Just (f acc)
-  | otherwise = findDups (f acc) (M.insert (f acc) m) fs
+  | H.member (f acc) m = Just (f acc)
+  | otherwise = findDups (f acc) (H.insert (f acc) m) fs
 
 partOne = do
   intervals <- getIntervals
@@ -28,6 +31,9 @@ partOne = do
 partTwo = do
   intervals <- getIntervals
   let repeating = intervals ++ repeating
-  print $ findDups (0 :: Integer) (M.empty) repeating
+  print $ findDups (0 :: Integer) (H.empty) repeating
+
+
+calculateIntervals xs = scanl1 (+) xs
 
 calculate = partOne >> partTwo
